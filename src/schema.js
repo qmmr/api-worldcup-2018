@@ -29,7 +29,16 @@ const typeDefs = `
     name: String!
   }
 
+  type Group {
+    _id: ID!
+    name: String!
+    teams: [Team]!
+    games: [Game!]!
+  }
+
   type Query {
+    group(_id: ID, name: String): Group
+    groups: [Group!]!
     team(_id: ID, name: String): Team
     teams: [Team!]!
   }

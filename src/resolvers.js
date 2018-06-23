@@ -1,10 +1,19 @@
 import Team from './models/team'
+import Group from './models/group'
 
 export const resolvers = {
   Query: {
     // games: () => (root, args, ctx, info) => ctx.db.query.games({}, info),
     // game: (root, args, ctx, info) => ctx.db.query.games({}, info).filter(game => game.id === args.id)[0],
     teams: async () => await Team.find(),
+    group: async (_, { _id, name }) => {
+      if (_id) {
+        return await Group.findById(_id)
+      } else if (typeof name === 'string' && name !== '') {
+        return await Group.findOne({ name })
+      }
+    },
+    groups: async () => await Group.find(),
     team: async (_, { _id, name }) => {
       if (_id) {
         return await Team.findById(_id)
