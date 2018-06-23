@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+
 const Schema = mongoose.Schema
 
-const TeamSchema = new Schema({
+export const TeamSchema = new Schema({
   emoji: { type: String, required: false },
   emojiString: { type: String, required: false },
   flag: { type: String, required: false },
