@@ -6,7 +6,7 @@ const typeDefs = `
     _id: ID!
     emoji: String!
     emojiString: String!
-    fifaCode: String!
+    shortName: String!
     flag: String!
     iso2: String!
     name: String!
