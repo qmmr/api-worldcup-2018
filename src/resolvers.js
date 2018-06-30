@@ -10,25 +10,49 @@ export const resolvers = {
     game: async (_, { _id, score, shortName }) => {
       if (_id) {
         return await Game.findById(_id)
-          .populate('homeTeam')
-          .populate('awayTeam')
+          .populate({
+            path: 'homeTeam',
+            populate: { path: 'games' },
+          })
+          .populate({
+            path: 'awayTeam',
+            populate: { path: 'games' },
+          })
           .exec()
       } else if (typeof score === 'string' && score !== '') {
         return await Game.findOne({ score })
-          .populate('homeTeam')
-          .populate('awayTeam')
+          .populate({
+            path: 'homeTeam',
+            populate: { path: 'games' },
+          })
+          .populate({
+            path: 'awayTeam',
+            populate: { path: 'games' },
+          })
           .exec()
       } else if (typeof shortName === 'string' && shortName !== '') {
         return await Game.findOne({ shortName })
-          .populate('homeTeam')
-          .populate('awayTeam')
+          .populate({
+            path: 'homeTeam',
+            populate: { path: 'games' },
+          })
+          .populate({
+            path: 'awayTeam',
+            populate: { path: 'games' },
+          })
           .exec()
       }
     },
     games: async () =>
       await Game.find()
-        .populate('homeTeam')
-        .populate('awayTeam')
+        .populate({
+          path: 'homeTeam',
+          populate: { path: 'games' },
+        })
+        .populate({
+          path: 'awayTeam',
+          populate: { path: 'games' },
+        })
         .exec(),
     group: async (_, { _id, name }) => {
       if (_id) {

@@ -7,7 +7,7 @@ const typeDefs = `
     emoji: String!
     emojiString: String!
     shortName: String!
-    games: [String]!
+    games: [Game]!
     flag: String!
     iso2: String!
     name: String!
