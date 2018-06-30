@@ -5,7 +5,16 @@ export const resolvers = {
   Query: {
     // games: () => (root, args, ctx, info) => ctx.db.query.games({}, info),
     // game: (root, args, ctx, info) => ctx.db.query.games({}, info).filter(game => game.id === args.id)[0],
-    teams: async () => await Team.find(),
+    game: async (_, { _id, name, shortName }) => {
+      if (_id) {
+        return await Game.findById(_id)
+      } else if (typeof name === 'string' && name !== '') {
+        return await Game.findOne({ name })
+      } else if (typeof shortName === 'string' && shortName !== '') {
+        return await Game.findOne({ shortName })
+      }
+    },
+    games: async () => await Game.find(),
     group: async (_, { _id, name }) => {
       if (_id) {
         return await Group.findById(_id)
@@ -21,9 +30,16 @@ export const resolvers = {
         return await Team.findOne({ name })
       }
     },
+    teams: async () => await Team.find(),
   },
   Mutation: {
-    createGame: async (_, args) => await Game.create(args.input),
+    createGame: async (_, { groupName, gameData, options } = {}) => {
+      console.log('createGame args', groupName, gameData, options)
+      const conditions = { name: groupName }
+      const update = { ...gameData }
+
+      return await Group.findOneAndUpdate(conditions, update, options)
+    },
     // updateGame: async (_, args) => await Game.findOneAndUpdate({ args._id }, args.input, { new: true }),
     // async deleteGame(_, { _id }) {
     //   return await Game.findByIdAndRemove(_id)

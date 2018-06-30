@@ -14,9 +14,15 @@ const typeDefs = `
 
   type Game {
     _id: ID!
-    score: String!
-    teamA: String!
-    teamB: String!
+    awayTeam: Team!,
+    datetime: String!,
+    finished: Boolean!,
+    homeTeam: Team!,
+    matchURI: String!,
+    score: String!,
+    stadium: String,
+    status: String!,
+    venue: String,
   }
 
   type Stadium {
@@ -41,18 +47,33 @@ const typeDefs = `
     groups: [Group!]!
     team(_id: ID, name: String): Team
     teams: [Team!]!
+    game(_id: ID, name: String): Game
+    games: [Game!]!
   }
 
-  input GameInput{
-    score: String!
-    teamA: String!
-    teamB: String!
+  input TeamInput {
+    emoji: String
+    emojiString: String
+    shortName: String!
+    flag: String
+    iso2: String
+    name: String!
+  }
+
+  input GameInput {
+    awayTeam: TeamInput!,
+    datetime: String!,
+    finished: Boolean!,
+    homeTeam: TeamInput!,
+    matchURI: String!,
+    score: String!,
+    stadium: String,
+    status: String!,
+    venue: String,
   }
 
   type Mutation {
-    createGame(input: GameInput) : Game
-    updateGame(_id: ID!, input: GameInput) : Game
-    deleteGame(_id: ID!) : Game
+    createGame(game: GameInput!): Game
   }
 `
 
