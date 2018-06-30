@@ -7,6 +7,7 @@ const typeDefs = `
     emoji: String!
     emojiString: String!
     shortName: String!
+    games: [String]!
     flag: String!
     iso2: String!
     name: String!
@@ -47,16 +48,12 @@ const typeDefs = `
     groups: [Group!]!
     team(_id: ID, name: String): Team
     teams: [Team!]!
-    game(_id: ID, name: String): Game
+    game(_id: ID, score: String, shortName: String): Game
     games: [Game!]!
   }
 
   input TeamInput {
-    emoji: String
-    emojiString: String
-    shortName: String!
-    flag: String
-    iso2: String
+    shortName: String
     name: String!
   }
 
@@ -65,7 +62,7 @@ const typeDefs = `
     datetime: String!,
     finished: Boolean!,
     homeTeam: TeamInput!,
-    matchURI: String!,
+    matchURI: String,
     score: String!,
     stadium: String,
     status: String!,

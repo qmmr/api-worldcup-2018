@@ -4,16 +4,15 @@ import { Team } from './team'
 const Schema = mongoose.Schema
 
 export const GameSchema = new Schema({
-  awayTeam: { type: [Team], required: true },
+  _id: Schema.Types.ObjectId,
+  awayTeam: { type: Schema.Types.ObjectId, ref: 'team' },
   datetime: { type: String, required: true },
   finished: { type: Boolean, required: true },
-  homeTeam: { type: [Team], required: true },
+  homeTeam: { type: Schema.Types.ObjectId, ref: 'team' },
   matchURI: { type: String, required: false },
   score: { type: String, required: true },
   stadium: { type: String, required: false },
   status: { type: String, required: true },
-  teamAId: { type: String, required: false },
-  teamBId: { type: String, required: false },
   venue: { type: String, required: false },
 })
 

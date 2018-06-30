@@ -1,17 +1,28 @@
+import mongoose from 'mongoose'
 import Team from './models/team'
 import Group from './models/group'
+import Game from './models/game'
 
 export const resolvers = {
   Query: {
     // games: () => (root, args, ctx, info) => ctx.db.query.games({}, info),
     // game: (root, args, ctx, info) => ctx.db.query.games({}, info).filter(game => game.id === args.id)[0],
-    game: async (_, { _id, name, shortName }) => {
+    game: async (_, { _id, score, shortName }) => {
       if (_id) {
         return await Game.findById(_id)
-      } else if (typeof name === 'string' && name !== '') {
-        return await Game.findOne({ name })
+          .populate('homeTeam')
+          .populate('awayTeam')
+          .exec()
+      } else if (typeof score === 'string' && score !== '') {
+        return await Game.findOne({ score })
+          .populate('homeTeam')
+          .populate('awayTeam')
+          .exec()
       } else if (typeof shortName === 'string' && shortName !== '') {
         return await Game.findOne({ shortName })
+          .populate('homeTeam')
+          .populate('awayTeam')
+          .exec()
       }
     },
     games: async () => await Game.find(),
