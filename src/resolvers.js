@@ -44,12 +44,40 @@ export const resolvers = {
     teams: async () => await Team.find(),
   },
   Mutation: {
-    createGame: async (_, { groupName, gameData, options } = {}) => {
-      console.log('createGame args', groupName, gameData, options)
-      const conditions = { name: groupName }
-      const update = { ...gameData }
+    createGame: async (_, { game } = {}) => {
+      const gameID = new mongoose.Types.ObjectId()
+      let homeTeam
+      let awayTeam
 
-      return await Group.findOneAndUpdate(conditions, update, options)
+      // console.log('createGame game', game)
+
+      if (typeof game.homeTeam.name === 'string') {
+        homeTeam = await Team.findOneAndUpdate({ name: game.homeTeam.name }, { games: [gameID] })
+          .populate('Game')
+          .exec()
+      }
+      if (typeof game.awayTeam.name === 'string') {
+        awayTeam = await Team.findOneAndUpdate({ name: game.awayTeam.name }, { games: [gameID] })
+          .populate('Game')
+          .exec()
+      }
+      console.log('homeTeam', homeTeam.name, homeTeam.games)
+      console.log('awayTeam', awayTeam.name, awayTeam.games)
+
+      const newGame = new Game({
+        _id: gameID,
+        awayTeam: awayTeam._id,
+        datetime: game.datetime,
+        finished: game.finished,
+        homeTeam: homeTeam._id,
+        score: game.score,
+        status: game.status,
+      })
+      console.log('newGame', newGame)
+      const saved = await newGame.save()
+      console.log('saved', saved)
+
+      return saved
     },
     // updateGame: async (_, args) => await Game.findOneAndUpdate({ args._id }, args.input, { new: true }),
     // async deleteGame(_, { _id }) {
