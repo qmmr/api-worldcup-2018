@@ -25,7 +25,11 @@ export const resolvers = {
           .exec()
       }
     },
-    games: async () => await Game.find(),
+    games: async () =>
+      await Game.find()
+        .populate('homeTeam')
+        .populate('awayTeam')
+        .exec(),
     group: async (_, { _id, name }) => {
       if (_id) {
         return await Group.findById(_id)
