@@ -5,8 +5,6 @@ import Game from './models/game'
 
 export const resolvers = {
   Query: {
-    // games: () => (root, args, ctx, info) => ctx.db.query.games({}, info),
-    // game: (root, args, ctx, info) => ctx.db.query.games({}, info).filter(game => game.id === args.id)[0],
     game: async (_, { _id, score, shortName }) => {
       if (_id) {
         return await Game.findById(_id)
@@ -43,6 +41,7 @@ export const resolvers = {
           .exec()
       }
     },
+    // TODO: Add filter to search group or knockout phase games
     games: async () =>
       await Game.find()
         .populate({

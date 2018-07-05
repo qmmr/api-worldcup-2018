@@ -15,15 +15,19 @@ const typeDefs = `
 
   type Game {
     _id: ID!
-    awayTeam: Team!,
-    datetime: String!,
-    finished: Boolean!,
-    homeTeam: Team!,
-    matchURI: String!,
-    score: String!,
-    stadium: String,
-    status: String!,
-    venue: String,
+    awayTeam: Team!
+    datetime: String!
+    finished: Boolean!
+    homeTeam: Team!
+    matchURL: String!
+    overtime: Boolean
+    overtimeScore: String
+    penalties: Boolean
+    penaltiesScore; String
+    score: String!
+    stadium: String
+    status: String!
+    venue: String
   }
 
   type Stadium {
@@ -58,15 +62,15 @@ const typeDefs = `
   }
 
   input GameInput {
-    awayTeam: TeamInput!,
-    datetime: String!,
-    finished: Boolean!,
-    homeTeam: TeamInput!,
-    matchURI: String,
-    score: String!,
-    stadium: String,
-    status: String!,
-    venue: String,
+    awayTeam: TeamInput!
+    datetime: String!
+    finished: Boolean!
+    homeTeam: TeamInput!
+    matchURL: String
+    score: String!
+    stadium: String
+    status: String!
+    venue: String
   }
 
   type Mutation {
@@ -74,7 +78,4 @@ const typeDefs = `
   }
 `
 
-export default makeExecutableSchema({
-  typeDefs,
-  resolvers,
-})
+export default makeExecutableSchema({ typeDefs, resolvers })
