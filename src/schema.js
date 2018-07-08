@@ -23,7 +23,7 @@ const typeDefs = `
     overtime: Boolean
     overtimeScore: String
     penalties: Boolean
-    penaltiesScore; String
+    penaltiesScore: String
     score: String!
     stadium: String
     status: String!
