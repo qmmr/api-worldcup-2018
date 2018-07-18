@@ -6,19 +6,48 @@ const typeDefs = `
     _id: ID!
     emoji: String!
     emojiString: String!
-    shortName: String!
-    games: [Game]!
     flag: String!
+    games: [Game]!
     iso2: String!
     name: String!
+    players: [Player!]!
+    shortName: String!
+  }
+
+  type Player {
+    countrycode: String
+    jerseyNum: String
+    photo: String
+    playerId: Int!
+    playerName: String!
+    playerRole: String
+    playerURL: String!
+  }
+
+  type Coach {
+    personalURL: String!
+    name: String!
+    photo: String!
+  }
+
+  type Lineup {
+    coach: Coach!
+    flag: String
+    lineup: [Player!]!
+    name: String
+    shortName: String
+    substitutes: [Player!]!
+    teamId: String
   }
 
   type Game {
     _id: ID!
     awayTeam: Team!
+    awayTeamLineup: Lineup!
     datetime: String!
     finished: Boolean!
     homeTeam: Team!
+    homeTeamLineup: Lineup!
     matchURL: String!
     overtime: Boolean
     overtimeScore: String
