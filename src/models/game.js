@@ -1,14 +1,17 @@
 import mongoose from 'mongoose'
 import { Team } from './team'
+import { LineupSchema } from './lineup'
 
 const Schema = mongoose.Schema
 
 export const GameSchema = new Schema({
   _id: Schema.Types.ObjectId,
   awayTeam: { type: Schema.Types.ObjectId, ref: 'team' },
+  awayTeamLineup: LineupSchema,
   datetime: { type: String, required: true },
   finished: { type: Boolean, required: true },
   homeTeam: { type: Schema.Types.ObjectId, ref: 'team' },
+  homeTeamLineup: LineupSchema,
   matchURL: { type: String, required: false },
   overtime: { type: Boolean, required: false },
   overtimeScore: { type: String, required: false },
