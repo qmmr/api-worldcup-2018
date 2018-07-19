@@ -48,6 +48,7 @@ const typeDefs = `
     finished: Boolean!
     homeTeam: Team!
     homeTeamLineup: Lineup!
+    matchID: Int!
     matchURL: String!
     overtime: Boolean
     overtimeScore: String
@@ -81,7 +82,7 @@ const typeDefs = `
     groups: [Group!]!
     team(_id: ID, name: String): Team
     teams: [Team!]!
-    game(_id: ID, score: String, shortName: String): Game
+    game(_id: ID, matchID: Int, matchURL: String): Game
     games: [Game!]!
   }
 

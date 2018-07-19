@@ -5,7 +5,7 @@ import Game from './models/game'
 
 export const resolvers = {
   Query: {
-    game: async (_, { _id, score, shortName }) => {
+    game: async (_, { _id, matchID, matchURL }) => {
       if (_id) {
         return await Game.findById(_id)
           .populate({
@@ -17,8 +17,8 @@ export const resolvers = {
             populate: { path: 'games' },
           })
           .exec()
-      } else if (typeof score === 'string' && score !== '') {
-        return await Game.findOne({ score })
+      } else if (typeof matchID === 'number') {
+        return await Game.findOne({ matchID })
           .populate({
             path: 'homeTeam',
             populate: { path: 'games' },
@@ -28,8 +28,8 @@ export const resolvers = {
             populate: { path: 'games' },
           })
           .exec()
-      } else if (typeof shortName === 'string' && shortName !== '') {
-        return await Game.findOne({ shortName })
+      } else if (typeof matchURL === 'string' && matchURL !== '') {
+        return await Game.findOne({ matchURL: { $regex: new RegExp(matchURL) } })
           .populate({
             path: 'homeTeam',
             populate: { path: 'games' },
