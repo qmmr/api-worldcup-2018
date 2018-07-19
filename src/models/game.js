@@ -12,6 +12,7 @@ export const GameSchema = new Schema({
   finished: { type: Boolean, required: true },
   homeTeam: { type: Schema.Types.ObjectId, ref: 'team' },
   homeTeamLineup: LineupSchema,
+  matchID: { type: Number, required: false },
   matchURL: { type: String, required: false },
   overtime: { type: Boolean, required: false },
   overtimeScore: { type: String, required: false },
