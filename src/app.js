@@ -40,6 +40,6 @@ const { db, disconnect } = connect()
 
 app.use('/graphql', graphqlHTTP({ graphiql: true, schema }))
 
-app.get('/', (req, res) => res.json({ error: 'Please use /graphql endpoint...' }))
+app.get('/', (req, res) => res.redirect('/graphql'))
 
 app.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`))
