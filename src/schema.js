@@ -56,6 +56,7 @@ const typeDefs = `
     penaltiesScore: String
     score: String!
     stadium: String
+    stage: String!
     status: String!
     venue: String
   }

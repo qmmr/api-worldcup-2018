@@ -20,6 +20,7 @@ export const GameSchema = new Schema({
   penaltiesScore: { type: String, required: false },
   score: { type: String, required: true },
   stadium: { type: String, required: false },
+  stage: { type: String, required: true },
   status: { type: String, required: true },
   venue: { type: String, required: false },
 })
