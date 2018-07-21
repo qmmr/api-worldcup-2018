@@ -84,7 +84,21 @@ const typeDefs = `
     team(_id: ID, name: String): Team
     teams: [Team!]!
     game(_id: ID, matchID: Int, matchURL: String): Game
-    games: [Game!]!
+		games(
+			datetime: String,
+			finished: Boolean,
+			matchID: Int,
+			matchURL: String,
+			overtime: Boolean,
+			overtimeScore: String,
+			penalties: Boolean,
+			penaltiesScore: String,
+			score: String,
+			stadium: String,
+			stage: String,
+			status: String,
+			venue: String,
+		): [Game!]!
   }
 
   input TeamInput {

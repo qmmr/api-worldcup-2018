@@ -41,9 +41,44 @@ export const resolvers = {
           .exec()
       }
     },
-    // TODO: Add filter to search group or knockout phase games
-    games: async () =>
-      await Game.find()
+    games: async (
+      _,
+      {
+        datetime,
+        finished,
+        matchID,
+        matchURL,
+        overtime,
+        overtimeScore,
+        penalties,
+        penaltiesScore,
+        score,
+        stadium,
+        stage,
+        status,
+        venue,
+      }
+    ) => {
+      const query = {}
+      if (datetime) query.datetime = datetime
+      if (finished) query.finished = finished
+      if (matchID) query.matchID = matchID
+      if (matchURL) query.matchURL = matchURL
+      if (overtime) query.overtime = overtime
+      if (overtimeScore) query.overtimeScore = overtimeScore
+      if (penalties) query.penalties = penalties
+      if (penaltiesScore) query.penaltiesScore = penaltiesScore
+      if (score) query.score = score
+      if (stadium) query.stadium = stadium
+      if (stage) query.stage = stage
+      if (status) query.status = status
+      if (venue) query.venue = venue
+      // awayTeam: { type: Schema.Types.ObjectId, ref: 'team' },
+      // awayTeamLineup: LineupSchema,
+      // homeTeam: { type: Schema.Types.ObjectId, ref: 'team' },
+      // homeTeamLineup: LineupSchema,
+      // FIXME: Fix query for datetime to be month, day or day and time specific
+      return await Game.find(query)
         .populate({
           path: 'homeTeam',
           populate: { path: 'games' },
@@ -52,7 +87,8 @@ export const resolvers = {
           path: 'awayTeam',
           populate: { path: 'games' },
         })
-        .exec(),
+        .exec()
+    },
     group: async (_, { _id, name }) => {
       if (_id) {
         return await Group.findById(_id)
