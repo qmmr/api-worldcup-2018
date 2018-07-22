@@ -59,26 +59,28 @@ export const resolvers = {
         venue,
       }
     ) => {
-      const query = {}
-      if (datetime) query.datetime = datetime
-      if (finished) query.finished = finished
-      if (matchID) query.matchID = matchID
-      if (matchURL) query.matchURL = matchURL
-      if (overtime) query.overtime = overtime
-      if (overtimeScore) query.overtimeScore = overtimeScore
-      if (penalties) query.penalties = penalties
-      if (penaltiesScore) query.penaltiesScore = penaltiesScore
-      if (score) query.score = score
-      if (stadium) query.stadium = stadium
-      if (stage) query.stage = stage
-      if (status) query.status = status
-      if (venue) query.venue = venue
+      let query = Game.find()
+
+      if (datetime) query = query.where('datetime').regex(datetime)
+      if (finished) query = query.where('finished', finished)
+      if (matchID) query = query.where('matchID', matchID)
+      if (matchURL) query = query.where('matchURL').regex(matchURL)
+      if (overtime) query = query.where('overtime', overtime)
+      if (overtimeScore) query = query.where('overtimeScore', overtimeScore)
+      if (penalties) query = query.where('penalties', penalties)
+      if (penaltiesScore) query = query.where('penaltiesScore', penaltiesScore)
+      if (score) query = query.where('score', score)
+      if (stadium) query = query.where('stadium', stadium)
+      if (stage) query = query.where('stage', stage)
+      if (status) query = query.where('status', status)
+      if (venue) query = query.where('venue', venue)
       // awayTeam: { type: Schema.Types.ObjectId, ref: 'team' },
       // awayTeamLineup: LineupSchema,
       // homeTeam: { type: Schema.Types.ObjectId, ref: 'team' },
       // homeTeamLineup: LineupSchema,
-      // FIXME: Fix query for datetime to be month, day or day and time specific
-      return await Game.find(query)
+      // FIXME: Add team name to query for matches for certain team
+
+      return query
         .populate({
           path: 'homeTeam',
           populate: { path: 'games' },
