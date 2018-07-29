@@ -11,6 +11,8 @@ export const TeamSchema = new Schema({
   iso2: { type: String, required: false },
   name: { type: String, required: false },
   shortName: { type: String, required: false },
+  teamID: { type: String, required: true },
+  teamURL: { type: String, required: true },
 })
 
 export default mongoose.model('team', TeamSchema)

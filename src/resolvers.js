@@ -99,11 +99,15 @@ export const resolvers = {
       }
     },
     groups: async () => await Group.find(),
-    team: async (_, { _id, name }) => {
+    team: async (_, { _id, name, teamID, teamURL }) => {
       if (_id) {
         return await Team.findById(_id)
       } else if (typeof name === 'string' && name !== '') {
         return await Team.findOne({ name })
+      } else if (typeof teamID === 'string' && teamID !== '') {
+        return await Team.findOne({ teamID })
+      } else if (typeof teamURL === 'string' && teamURL !== '') {
+        return await Team.findOne({ teamURL: { $regex: new RegExp(teamURL) } })
       }
     },
     teams: async () => await Team.find(),

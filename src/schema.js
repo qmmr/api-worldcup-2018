@@ -8,10 +8,12 @@ const typeDefs = `
     emojiString: String!
     flag: String!
     games: [Game]!
+    teamURL: String!
     iso2: String!
     name: String!
     players: [Player!]!
     shortName: String!
+    teamID: String!
   }
 
   type Player {
@@ -81,24 +83,24 @@ const typeDefs = `
   type Query {
     group(_id: ID, name: String): Group
     groups: [Group!]!
-    team(_id: ID, name: String): Team
+    team(_id: ID, name: String, teamID: String, teamURL: String): Team
     teams: [Team!]!
     game(_id: ID, matchID: Int, matchURL: String): Game
-		games(
-			datetime: String,
-			finished: Boolean,
-			matchID: Int,
-			matchURL: String,
-			overtime: Boolean,
-			overtimeScore: String,
-			penalties: Boolean,
-			penaltiesScore: String,
-			score: String,
-			stadium: String,
-			stage: String,
-			status: String,
-			venue: String,
-		): [Game!]!
+    games(
+      datetime: String,
+      finished: Boolean,
+      matchID: Int,
+      matchURL: String,
+      overtime: Boolean,
+      overtimeScore: String,
+      penalties: Boolean,
+      penaltiesScore: String,
+      score: String,
+      stadium: String,
+      stage: String,
+      status: String,
+      venue: String,
+    ): [Game!]!
   }
 
   input TeamInput {
