@@ -10,6 +10,7 @@ export const TeamSchema = new Schema({
   games: [{ type: Schema.Types.ObjectId, ref: 'game' }],
   iso2: { type: String, required: false },
   name: { type: String, required: false },
+  // players: [{ type: Schema.Types.ObjectId, ref: 'player' }], // FIXME: Associate with proper players
   shortName: { type: String, required: false },
   teamID: { type: String, required: false },
   teamURL: { type: String, required: false },
