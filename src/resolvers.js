@@ -56,10 +56,17 @@ export const resolvers = {
         stadium,
         stage,
         status,
+        teamName,
         venue,
       }
     ) => {
       let query = Game.find()
+      let team
+
+      if (teamName) {
+        team = await Team.findOne({ name: teamName })
+        query = query.or([{ homeTeam: team._id }, { awayTeam: team._id }])
+      }
 
       if (datetime) query = query.where('datetime').regex(datetime)
       if (finished) query = query.where('finished', finished)
@@ -74,21 +81,10 @@ export const resolvers = {
       if (stage) query = query.where('stage', stage)
       if (status) query = query.where('status', status)
       if (venue) query = query.where('venue', venue)
-      // awayTeam: { type: Schema.Types.ObjectId, ref: 'team' },
-      // awayTeamLineup: LineupSchema,
-      // homeTeam: { type: Schema.Types.ObjectId, ref: 'team' },
-      // homeTeamLineup: LineupSchema,
-      // FIXME: Add team name to query for matches for certain team
 
       return query
-        .populate({
-          path: 'homeTeam',
-          populate: { path: 'games' },
-        })
-        .populate({
-          path: 'awayTeam',
-          populate: { path: 'games' },
-        })
+        .populate({ path: 'homeTeam', populate: { path: 'games' } })
+        .populate({ path: 'awayTeam', populate: { path: 'games' } })
         .exec()
     },
     group: async (_, { _id, name }) => {

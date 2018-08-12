@@ -99,6 +99,7 @@ const typeDefs = `
       stadium: String,
       stage: String,
       status: String,
+      teamName: String,
       venue: String,
     ): [Game!]!
   }
