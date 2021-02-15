@@ -88,6 +88,8 @@ export const resolvers = {
         .exec()
     },
     group: async (_, { _id, name }) => {
+      // TODO: Refactor to use populate teams
+      // TODO: Add association to games
       if (_id) {
         return await Group.findById(_id)
       } else if (typeof name === 'string' && name !== '') {
