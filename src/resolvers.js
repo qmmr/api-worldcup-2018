@@ -2,7 +2,9 @@ import mongoose from 'mongoose'
 import Team from './models/team'
 import Group from './models/group'
 import Game from './models/game'
+// import Player from './models/player'
 
+// TODO: Finish schema & models for Player, Players and when and how to populate them
 export const resolvers = {
   Query: {
     game: async (_, { _id, matchID, matchURL }) => {
